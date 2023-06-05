@@ -1,0 +1,1861 @@
+1.	Consider telephone book database of N clients. Make use of a hash table implementation to quickly look up client‘s telephone number. Make use of two collision handling techniques and compare them using number of comparisons required to find a set of telephone numbers
+
+import array as hashTable
+
+def initial():
+    print(hashTable)  # Print empty hash table.
+
+def display():
+    for i in range(0,7):
+        print("Index[",i,"]=", hashTable[i]) # Print hash table along with data.
+
+def linearInsert(value):  # this function is used to insert values into hash table
+    key = value % size
+    if (hashTable[key] == -1):
+        hashTable[key] = value
+        print(value, "inserted at arr", key)
+    else:
+        print("Collision : arr", key, "has element", hashTable[key], "already!")
+        print("Unable to insert", value, "into hash table")
+        i = 0
+        count = 0
+        while (i < size):
+            if (hashTable[i] != -1):
+                count += 1
+            i += 1
+        if (count == size):  # checking for the hash full
+            print("Hash Table Is Full Hence ", value, " Can not Be Inserted")
+            print(hashTable)
+        else:  # logic of linear probiing
+            i = key
+            for i in range(key, size):
+                key1 = (i + 1) % size # calculating next empty location address using linear probing formula
+                if (hashTable[key1] == -1):  # if location is empty insert data
+                    hashTable[key1] = value
+                    print(value, "inserted at arr", key1)
+                    break;
+
+
+def quadraticInsert(value):  # this function is used to insert values into hash table
+    key = value % size
+    if (hashTable[key] == -1):
+        hashTable[key] = value
+        print(value, "inserted at arr", key)
+    else:
+        print("Collision : arr", key, "has element", hashTable[key], "already!")
+        i = 0
+        count = 0
+        while (i < size):
+            if (hashTable[i] != -1):
+                count += 1
+            i += 1
+        if (count == size):  # checking for the hash full
+            print("Hash Table Is Full Hence ", value, " Can not Be Inserted")
+            display()
+        else:
+
+            for i in range(0, size):
+                key1 = (key + i * i) % size  # Quadratic Probing formula
+                if (hashTable[key1] == -1):
+                    hashTable[key1] = value;
+                    print(value, "inserted at arr", key1)
+                    break;
+
+def search(value):  # this function is used to search value into hash table
+    key = value % size
+    if (hashTable[key] == value):
+        print(value, "Found at", key, "th Index location")
+    else:
+        print(value, "Not Found at", key, "th Index location")
+
+
+def delHash(value):  # this function is used to delete value from hash table if present
+    key = value % size
+    if (hashTable[key] == value):
+        print(value, "Sussfully deleted from hash table")
+        hashTable[key] = -1
+    else:
+        print(value, "Not Found at", key, "th Index location")
+
+
+if __name__ == "__main__":
+    # Create an empty array of size 7 and Initialize all index to -1
+    print("Enter the size of Hashtable")
+    size = int(input())
+    hashTable = hashTable.array('i', [-1] * size)
+    initial()  # Actual code starting to execute from this line.
+    while(True):
+        print("1. Enter Phone Number in hashtable using linear Probing")
+        print("2. Enter Phone Number in hashtable using Quadratic Probing")
+        print("3. Search Phone Number")
+        print("4. Display Phone Directory")
+        print("5. Exit")
+        ch = int(input())
+        if(ch == 1):
+            print("Enter the Phone Number you want to insert: ")
+            value = int(input())
+            linearInsert(value)
+        elif(ch == 2):
+            print("Enter the Phone Number you want to insert: ")
+            value = int(input())
+            quadraticInsert(value)
+        elif(ch == 3):
+            print("Enter the Phone Number you want to search: ")
+            value = int(input())
+            search(value)
+        elif(ch == 4):
+            display()
+        elif(ch == 5):
+            quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.	To create ADT that implement the "set" concept.
+a. Add (new Element) -Place a value into the set , b. Remove (element) Remove the value 
+c. Contains (element) Return true if element is in collection, d. Size () Return number of 
+values in collection Iterator () Return an iterator used to loop over collection, e. 
+Intersection of two sets , f. Union of two sets, g. Difference between two sets, h. Subset
+
+setA = {"A", "B", "C", "D", "E"}
+setB = {"B", "C", "D"}
+
+
+def display():
+    print(setA)
+    print(setB)
+
+def addEle(ele):
+    setA.add(ele)
+
+def remEle(ele):
+    setA.remove(ele)
+    print("Element" + ele + "removed")
+
+def searchEle(ele):
+    if ele in setA:
+        return "True"
+
+def getSize():
+    print(len(setA))
+
+def getInter():
+    setC = setA.intersection(setB)
+    print(setC)
+
+def getUnion():
+    setC = setA.union(setB)
+    print(setC)
+
+def getDiff():
+    setC = setA.difference(setB)
+    print(setC)
+
+def getSubset():
+    setC = setB.issubset(setA)
+    print(setC)
+
+if __name__ == "__main__":
+    while True:
+        print("1. Add Element.")
+        print("2. Remove Element.")
+        print("3. Search Element.")
+        print("4. Get Size of Set.")
+        print("5. Intersection.")
+        print("6. Union.")
+        print("7. Difference.")
+        print("8. Subset.")
+        print("9. Exit.")
+        ch = int(input("->"))
+
+        while (ch != 9):
+            if ch == 1:
+                display()
+                print("Enter the element you want to add")
+                ele = input()
+                addEle(ele)
+                display()
+                break
+            elif ch == 2:
+                display()
+                print("Enter the element you want to remove")
+                ele = input()
+                remEle(ele)
+                display()
+                break
+            elif ch == 3:
+                print("Enter the element you want to search")
+                ele = input()
+                searchEle(ele)
+                display()
+                break
+            elif ch == 4:
+                getSize()
+                break
+            elif ch == 5:
+                getInter()
+                break
+            elif ch == 6:
+                getUnion()
+                break
+            elif ch == 7:
+                getDiff()
+                break
+            elif ch == 8:
+                getSubset()
+                break
+        if ch == 9:
+            break
+
+3.	Beginning with an empty binary search tree, Construct binary search tree by inserting the 
+values in the order given. After constructing a binary tree -
+i. Insert new node, ii. Find number of nodes in longest path from root, iii. Minimum data 
+value found in the tree, iv. Change a tree so that the roles of the left and right pointers are 
+swapped at every node, v. Search a value
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+class node
+{
+public:
+    node *left;
+    int data;
+    node *right;
+};
+
+class BST
+{
+public:
+    node *root;
+    BST()
+    {
+        root = NULL;
+    }
+    void create();
+    void insert(node*, node*);
+    void inorder(node*);
+    void preorder(node*);
+    void postorder(node*);
+    void descend(node*);
+    int size(node*);
+    node* deleteNode(node*, int);
+    void search(node*, int);
+    int comparisons(node*, int, int);
+    int nodes_lp(node*);
+    node* minValue(node*);
+    int minBST(node*);
+    int maxBST(node*);
+    void mirror(node*);
+    void destroy();
+    void treeTraversal();
+};
+
+node* BST::minValue(node *root)
+{
+    node *curr;
+    curr = new node;
+    curr = root;
+    while(curr->left != NULL)
+        curr = curr->left;
+    return curr;
+}
+
+int BST::minBST(node *root)
+{
+    if (root->left == NULL)
+        return root->data;
+    else
+        return minBST(root->left);
+}
+
+int BST::maxBST(node *root)
+{
+    if(root->right == NULL)
+        return root->data;
+    else
+        return maxBST(root->right);
+}
+
+int BST::size(node *temp)
+{
+    if(temp == NULL)
+        return 0;
+    else
+        return size(temp->left) + 1 + size(temp->right);
+}
+
+void BST::create()
+{
+    node *temp;
+    temp = new node;  
+    cout<<"Enter data: "; 
+    cin>>temp->data; 
+    
+    temp->left = temp->right = NULL; 
+    if(root == NULL)  
+        root = temp;
+    else 
+        insert(root, temp); 
+}
+
+void BST::insert(node *root, node *temp) 
+{
+    if(temp->data < root->data)
+    {
+        if(root->left == NULL) 
+            root->left = temp;
+        else 
+            insert(root->left, temp);
+    }
+    else
+    {
+        if(root->right == NULL) 
+            root->right = temp;
+        else 
+            insert(root->right, temp);
+    }
+}
+
+void BST::inorder(node *temp) 
+{
+    if(temp != NULL)
+    {
+        inorder(temp->left);
+        cout<<temp->data<<" ";
+        inorder(temp->right);
+    }
+}
+
+void BST::preorder(node *temp)
+{
+    if(temp != NULL)
+    {
+        cout<<temp->data<<" ";
+        preorder(temp->left);
+        preorder(temp->right);
+    }
+}
+
+void BST::postorder(node *temp)
+{
+    if(temp!=NULL)
+    {
+        postorder(temp->left);
+        postorder(temp->right);
+        cout<<temp->data<<" ";
+    }
+}
+
+void BST::descend(node *temp)
+{
+    if(temp != NULL)
+    {
+        descend(temp->right);
+        cout<<temp->data<<" ";
+        descend(temp->left);
+    }
+}
+
+node* BST::deleteNode(node *root, int key)
+{
+    if(root == NULL) 
+        return root;
+    
+    node *temp;
+    temp = new node;
+    if(key < root->data)
+    {
+        if(root->left == NULL)
+            cout<<"Not found"<<endl;
+        else
+            root->left = deleteNode(root->left, key);
+    }
+    else if(key > root->data)
+    {
+        if(root->right == NULL)
+            cout<<"Not found"<<endl;
+        else
+            root->right = deleteNode(root->right, key);
+    }
+    else
+    {
+        if(root->right == NULL)
+        {
+            temp = root->left;
+            delete(root);
+            return temp;
+        }
+        if(root->left == NULL)
+        {
+            temp = root->right;
+            delete(root);
+            return temp;
+        }
+        temp = minValue(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
+    }
+    return root;
+}
+
+void BST::search(node *root, int key)
+{
+    if(key<root->data)
+    {
+        if(root->left == NULL)
+            cout<<"Not found"<<endl;
+        else 
+            search(root->left, key);
+    }
+    else if(key>root->data)
+    {
+        if(root->right == NULL)
+            cout<<"Not found"<<endl;
+        else 
+            search(root->right, key);
+    }
+    else
+        cout<<"Found"<<endl;
+}
+
+int BST::comparisons(node *root, int key, int height)
+{
+    if(root == NULL) 
+        return 0;
+    if(root->data == key) 
+        return height;
+    if(key > root->data)
+        return comparisons(root->right, key, height+1);
+    else
+        return comparisons(root->left, key, height+1);
+}
+
+int BST::nodes_lp(node *root)
+{
+    if(root == NULL) 
+        return 0;
+    int leftt = nodes_lp(root->left);
+    int rightt = nodes_lp(root->right);
+    if(leftt > rightt) 
+        return leftt+1;
+    else 
+        return rightt+1;
+}
+
+void BST::mirror(node *root)
+{
+    if(root == NULL)
+        return;
+    else
+    {
+        node *temp;
+        temp = new node;
+        mirror(root->left);
+        mirror(root->right);
+        temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+    }
+}
+
+void BST::destroy()
+{
+    if(root != NULL) 
+        root = NULL;
+    cout<<"Destroyed!"<<endl;
+}
+
+void BST::treeTraversal()
+{
+    cout<<"\n Preoder Traversal =";
+    preorder(root); cout<<endl; 
+    cout<<"\n Inoder Traversal =";
+    inorder(root); cout<<endl; 
+    cout<<"\n Postoder Traversal =";
+    postorder(root); cout<<endl; 
+}
+
+int main() {
+	BST B;
+    char n;
+	int op;
+    x:B.create();
+    cout<<"Do you want to continue(Y/N): ";
+    cin>>n;
+    if(n=='Y' || n=='y') goto x;
+	while(1)
+    {
+        cout<<"\n1. Enter value"<<endl;
+        cout<<"2. Size"<<endl;
+        cout<<"3. Display Tree in Preorderm, Inorder, Postorder";
+        cout<<"4. Descending order"<<endl;
+        cout<<"5. Delete"<<endl;
+        cout<<"6. Search"<<endl;
+        cout<<"7. Min and Max"<<endl;
+        cout<<"8. No. of comparisons"<<endl;
+        cout<<"9. No. of nodes in longest path"<<endl;
+        cout<<"10. Mirror BST"<<endl;
+        cout<<"11. Destroy BST"<<endl;
+        cout<<"12. Exit"<<endl;
+        cout<<"Enter your choice: ";
+        cin>>op; cout<<endl;
+        switch(op)
+        {
+            case 1: 
+                B.create();
+                break;
+            case 2: 
+                cout<<"\nSize: "<<B.size(B.root)<<endl; 
+                break;
+            case 3: 
+                B.treeTraversal();
+                break;
+            case 4: 
+                B.descend(B.root); cout<<endl; 
+                break;
+            case 5: 
+                cout<<"\nEnter no. you want to delete: ";
+                cin>>n;
+                B.root = B.deleteNode(B.root, n);
+                break;
+            case 6: 
+                cout<<"\nEnter no. you want to search: ";
+                cin>>n;
+                B.search(B.root, n);
+                break;
+            case 7: 
+                cout<<"\nMin Value: "<<B.minBST(B.root)<<endl;
+                cout<<"\nMax Value: "<<B.maxBST(B.root)<<endl; 
+                break;
+            case 8: 
+                cout<<"Enter no. you want comparisons for: ";
+                cin>>n;
+                cout<<"Total no. of comparisons: "<<B.comparisons(B.root, n, 0)<<endl;
+                break;
+            case 9: 
+                cout<<"No. of nodes in longest path: "<<B.nodes_lp(B.root)<<endl;
+                break;
+            case 10: 
+                B.mirror(B.root); 
+                break;
+            case 11: 
+                cout<<"BST Destroyed"<<endl;
+                B.destroy(); 
+                break;
+            case 12: 
+                exit(1); 
+                break;
+            default: 
+                cout<<"\nInvalid choice"; 
+                break;
+        }
+    }
+    return 0;
+}
+
+4.	Construct an expression tree from the given prefix expression eg. +--a*bc/def and 
+traverse it using post order traversal (non recursive) and then delete the entire tree.
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+class node
+{
+    public:
+        node *left;
+        string word;
+        string meaning;
+        node *right;
+};
+
+class dict
+{
+    public:
+        node *root;
+        dict()
+        {
+            root = NULL;
+        }
+        void create();
+        void insert(node*, node*);
+        void inorder(node*);
+        void treeTraversal();
+        void search(node*, string);
+        void descend(node*);
+        void ascend(node*);
+        node* deleteNode(node*, string);
+
+};
+
+void dict::create()
+{
+    node *temp;
+    temp = new node;
+    temp->left = temp->right = NULL;
+    cout<<"Enter Word: "<<endl; 
+    cin>> temp->word;
+    cout<<"Enter Meaning: "<<endl;
+    cin>>temp->meaning;
+    if(root == NULL)
+        root = temp;
+    else
+        insert(root, temp);
+}
+
+void dict::insert(node *root, node *temp) 
+{
+    if(temp->word < root->word)
+    {
+        if(root->left == NULL) 
+            root->left = temp;
+        else 
+            insert(root->left, temp);
+    }
+    else
+    {
+        if(root->right == NULL) 
+            root->right = temp;
+        else 
+            insert(root->right, temp);
+    }
+}
+
+void dict::inorder(node *temp) 
+{
+    if(temp != NULL)
+    {
+        inorder(temp->left);
+        cout<<"Word :"<<temp->word<<" ";
+        cout<<"Meaning :"<<temp->meaning<<" "<<endl;
+        inorder(temp->right);
+    }
+}
+
+void dict::treeTraversal()
+{ 
+    cout<<"\n Inorder Traversal"<<endl;
+    inorder(root); 
+    cout<<endl;
+}
+
+void dict::search(node *root, string key)
+{
+    if(key<root->word)
+    {
+        if(root->left == NULL)
+            cout<<"Not found"<<endl;
+        else 
+            search(root->left, key);
+    }
+    else if(key>root->word)
+    {
+        if(root->right == NULL)
+            cout<<"Not found"<<endl;
+        else 
+            search(root->right, key);
+    }
+    else
+        if (root->word == key)
+        {
+            cout<<"Word: "<<root->word<<" ";
+            cout<<"Meaning: "<<root->meaning<<endl;
+        }
+        
+        
+}
+void dict::descend(node *temp)
+{
+    if(temp != NULL)
+    {
+        descend(temp->right);
+        cout<<"Word: "<<temp->word<<" ";
+        cout<<"Meaning: "<<temp->meaning<<endl;
+        descend(temp->left);
+    }
+}
+
+void dict::ascend(node* temp)
+{
+    if (temp != NULL)
+    {
+        ascend(temp->left);
+        cout<<"Word: "<<temp->word<<" ";
+        cout<<"Meaning: "<<temp->meaning<<endl;
+        ascend(temp->right);
+    }
+    
+}
+
+node* dict::deleteNode(node * root, string key)
+{
+    if(root == NULL) 
+        return root;
+    
+    node *temp;
+    temp = new node;
+    if(key < root->word)
+    {
+        if(root->left == NULL)
+            cout<<"Not found"<<endl;
+        else
+            root->left = deleteNode(root->left, key);
+    }
+    else if(key > root->word)
+    {
+        if(root->right == NULL)
+            cout<<"Not found"<<endl;
+        else
+            root->right = deleteNode(root->right, key);
+    }
+    else
+    {
+        if(root->right == NULL)
+        {
+            temp = root->left;
+            delete(root);
+            return temp;
+        }
+        if(root->left == NULL)
+        {
+            temp = root->right;
+            delete(root);
+            return temp;
+        }
+        //temp = minValue(root->right);
+        root->word = temp->word;
+        root->right = deleteNode(root->right, temp->word);
+    }
+    return root;
+}
+
+
+int main()
+{
+    dict d1;
+    int ch;
+    char n;
+    string key;
+    x:d1.create();
+    cout<<"Do you want to continue(Y/N): ";
+    cin>>n;
+    if(n=='Y' || n=='y') goto x;
+    while(1)
+    {
+        cout<<"1. Enter Data"<<endl;
+        cout<<"2. Inorder"<<endl;
+        cout<<"3. Search"<<endl;
+        cout<<"4. Descending"<<endl;
+        cout<<"5. Ascending"<<endl;
+        cout<<"6. Delete"<<endl;
+        cout<<"7. Exit"<<endl;
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:
+                d1.create();
+                break;
+            case 2:
+                d1.treeTraversal();
+                break;
+            case 3:
+                cout<<"Enter the word you want meaning for :"<<endl;
+                cin>>key;
+                d1.search(d1.root, key);
+                break;
+            case 4:
+                d1.descend(d1.root);
+                break;
+            case 5:
+                d1.ascend(d1.root);
+                break;
+            case 6:
+                cout<<"Enter the word you want to delete:"<<endl;
+                cin>>key;
+                d1.deleteNode(d1.root, key);
+                cout<<"Node Deleted !"<<endl;
+                break;
+            case 7:
+                exit(1); 
+                break;
+            default:
+                break;
+        }
+    }
+    
+    
+}
+5.	A Dictionary stores keywords and its meanings. Provide facility for adding new 
+keywords, deleting keywords, updating values of any entry. Provide facility to display 
+whole data sorted in ascending/ Descending order. Also find how many maximum 
+comparisons may require for finding any keyword. Use Binary Search Tree for 
+implementation.
+
+#include <iostream> #include <cstdlib> using namespace std;
+
+class node
+{
+public:
+node *left; string word;
+string meaning; node *right;
+};
+
+
+class dict
+{
+public:
+node *root; dict()
+{
+root = NULL;
+}
+void create();
+void insert(node*, node*); void inorder(node*);
+void treeTraversal();
+void search(node*, string); void descend(node*);
+void ascend(node*);
+node* deleteNode(node*, string);
+ 
+};
+
+
+void dict::create()
+{
+node *temp;
+temp = new node;
+temp->left = temp->right = NULL; cout<<"Enter Word: "<<endl;
+cin>> temp->word;
+cout<<"Enter Meaning: "<<endl; cin>>temp->meaning;
+if(root == NULL) root = temp;
+else
+insert(root, temp);
+}
+
+
+void dict::insert(node *root, node *temp)
+{
+if(temp->word < root->word)
+{
+if(root->left == NULL) root->left = temp;
+else
+insert(root->left, temp);
+}
+else
+{
+if(root->right == NULL) root->right = temp;
+ 
+else
+insert(root->right, temp);
+
+}
+
+}
+
+
+void dict::inorder(node *temp)
+{
+if(temp != NULL)
+{
+inorder(temp->left);
+cout<<"Word :"<<temp->word<<" ";
+cout<<"Meaning :"<<temp->meaning<<" "<<endl; inorder(temp->right);
+}
+}
+
+
+void dict::treeTraversal()
+{
+cout<<"\n Inorder Traversal"<<endl; inorder(root);
+cout<<endl;
+}
+
+
+void dict::search(node *root, string key)
+{
+if(key<root->word)
+{
+if(root->left == NULL)
+cout<<"Not found"<<endl; else
+search(root->left, key);
+ 
+}
+else if(key>root->word)
+{
+if(root->right == NULL)
+cout<<"Not found"<<endl; else
+search(root->right, key);
+}
+else
+if (root->word == key)
+{
+cout<<"Word: "<<root->word<<" ";
+cout<<"Meaning: "<<root->meaning<<endl;
+}
+
+
+
+
+}
+void dict::descend(node *temp)
+{
+if(temp != NULL)
+{
+descend(temp->right);
+cout<<"Word: "<<temp->word<<" ";
+cout<<"Meaning: "<<temp->meaning<<endl; descend(temp->left);
+}
+}
+
+
+void dict::ascend(node* temp)
+{
+if (temp != NULL)
+ 
+{
+
+ascend(temp->left);
+cout<<"Word: "<<temp->word<<" ";
+cout<<"Meaning: "<<temp->meaning<<endl; ascend(temp->right);
+}
+
+
+}
+
+
+node* dict::deleteNode(node * root, string key)
+{
+if(root == NULL) return root;
+
+node *temp;
+temp = new node;
+if(key < root->word)
+{
+if(root->left == NULL)
+cout<<"Not found"<<endl; else
+root->left = deleteNode(root->left, key);
+}
+else if(key > root->word)
+{
+if(root->right == NULL)
+cout<<"Not found"<<endl; else
+root->right = deleteNode(root->right, key);
+}
+else
+ 
+{
+
+if(root->right == NULL)
+{
+temp = root->left; delete(root);
+return temp;
+}
+if(root->left == NULL)
+{
+temp = root->right; delete(root);
+return temp;
+}
+//temp = minValue(root->right); root->word = temp->word;
+root->right = deleteNode(root->right, temp->word);
+
+}
+return root;
+
+}
+
+
+
+
+int main()
+{
+dict d1; int ch; char n;
+string key; x:d1.create();
+cout<<"Do you want to continue(Y/N): "; cin>>n;
+if(n=='Y' || n=='y') goto x;
+ 
+while(1)
+{
+cout<<"1. Enter Data"<<endl; cout<<"2. Inorder"<<endl; cout<<"3. Search"<<endl; cout<<"4. Descending"<<endl; cout<<"5. Ascending"<<endl; cout<<"6. Delete"<<endl;
+cout<<"7. Exit"<<endl; cin>>ch;
+switch(ch)
+{
+case 1:
+d1.create(); break;
+case 2:
+d1.treeTraversal(); break;
+case 3:
+cout<<"Enter the word you want meaning for :"<<endl; cin>>key;
+d1.search(d1.root, key); break;
+case 4:
+d1.descend(d1.root); break;
+case 5:
+d1.ascend(d1.root); break;
+case 6:
+cout<<"Enter the word you want to delete:"<<endl;
+ 
+cin>>key;
+d1.deleteNode(d1.root, key); cout<<"Node Deleted !"<<endl; break;
+case 7:
+exit(1); break;
+default: break;
+}
+
+}
+}
+6.	There are flight paths between cities. If there is a flight between city A and city B then 
+there is an edge between the cities. The cost of the edge can be the time that flight take to 
+reach city B from A, or the amount of fuel used for the journey. Represent this as a graph. 
+The node can be represented by airport name or name of the city. Use adjacency list 
+representation of the graph or use adjacency matrix representation of the graph. Check 
+whether the graph is connected or not. Justify the storage representation used.
+
+#include <iostream> #include <queue> using namespace std;
+
+int adj_mat[50][50] = {0,0}; int visited[50] = {0};
+
+int main()
+{
+cout<<"Enter no. of cities: "; int n, u;
+cin>>n;
+string cities[n];
+for(int i=0; i<n; i++)
+{
+cout<<"Enter city #"<<i<<" (Airport Code): "; cin>>cities[i];
+}
+cout<<"\nYour cities are: "<<endl; for(int i=0; i<n; i++)
+cout<<"city #"<<i<<": "<<cities[i]<<endl;
+cout<<"\n Enter 0 if there is no flight between cities \n "; for(int i=0; i<n; i++)
+{
+for(int j=i+1; j<n; j++)
+{
+cout<<"Enter required fuel to reach "<<cities[i]<<" and "<<cities[j]<<": "; cin>>adj_mat[i][j];
+adj_mat[j][i] = adj_mat[i][j];
+ 
+}
+
+}
+cout<<endl;
+for(int i=0; i<n; i++)
+cout<<"\t"<<cities[i]<<"\t"; for(int i=0; i<n; i++)
+{
+cout<<"\n"<<cities[i]; for(int j=0; j<n; j++)
+cout<<"\t"<<adj_mat[i][j]<<"\t"; cout<<endl;
+}
+
+}
+7.	You have a business with several offices; you want to lease phone lines to connect them 
+up with each other; and the phone company charges different amounts of money to 
+connect different pairs of cities. You want a set of lines that connects all your offices with 
+a minimum total cost. Solve the problem by suggesting appropriate data structures.
+
+#include<iostream> using namespace std;
+
+class tree
+{
+int a[20][20],l,u,w,i,j,v,e,visited[20];
+public:
+void input(); void display();
+void minimum();
+};
+
+
+void tree::input()
+{
+cout<<"Enter the no. of branches: "; cin>>v;
+
+for(i=0;i<v;i++)
+{
+visited[i]=0; for(j=0;j<v;j++)
+{
+a[i][j]=999;
+}
+}
+
+
+cout<<"\nEnter the no. of connections: "; cin>>e;
+ 
+for(i=0;i<e;i++)
+{
+cout<<"Enter the end branches of connections: "<<endl; cin>>l>>u;
+cout<<"Enter the phone company charges for this connection: "; cin>>w;
+a[l-1][u-1]=a[u-1][l-1]=w;
+}
+
+}
+
+
+void tree::display()
+{
+cout<<"\nAdjacency matrix:"; for(i=0;i<v;i++)
+{
+cout<<endl; for(j=0;j<v;j++)
+{
+cout<<a[i][j]<<" ";
+}
+cout<<endl;
+}
+}
+
+
+void tree::minimum()
+{
+int p=0,q=0,total=0,min; visited[0]=1;
+for(int count=0;count<(v-1);count++)
+{
+min=999;
+ 
+for(i=0;i<v;i++)
+{
+if(visited[i]==1)
+{
+for(j=0;j<v;j++)
+{
+if(visited[j]!=1)
+{
+if(min > a[i][j])
+{
+min=a[i][j]; p=i;
+q=j;
+}
+}
+}
+}
+}
+visited[p]=1; visited[q]=1;
+total=total+min;
+
+cout<<"Minimum cost connection is"<<(p+1)<<" -> "<<(q+1)<<" with charge :
+"<<min<< endl;
+
+
+}
+
+cout<<"The minimum total cost of connections of all branches is: "<<total<<endl;
+
+}
+
+
+int main()
+{
+int ch;
+ 
+tree t; do
+{
+
+cout<<"==========PRIM'S ALGORITHM================="<<endl;
+cout<<"\n1.INPUT\n \n2.DISPLAY\n \n3.MINIMUM\n"<<endl; cout<<"Enter your choice :"<<endl;
+cin>>ch;
+
+
+switch(ch)
+{
+case 1: cout<<"*******INPUT YOUR VALUES*******"<<endl; t.input();
+break;
+
+
+case 2: cout<<"*******DISPLAY THE CONTENTS********"<<endl; t.display();
+break;
+
+
+case 3: cout<<"*********MINIMUM************"<<endl; t.minimum();
+break;
+}
+
+
+}while(ch!=4); return 0;
+}
+
+8.	Given sequence k = k1 <k2 < … <kn of n sorted keys, with a search probability pi for 
+each key ki . Build the Binary search tree that has the least search cost given the access 
+probability for each key?
+
+#include<iostream> using namespace std; void con_obst(void); void print(int,int);
+float a[20],b[20],wt[20][20],c[20][20];
+int r[20][20],n; int main()
+{
+int i;
+cout<<"\n****** PROGRAM FOR OBST ******\n"; cout<<"\nEnter the no. of nodes want in OBST : ";
+cin>>n;cout<<"\nEnter the probability for successful search Pi :: "; cout<<"\n————————————————\n";
+for(i=1;i<=n;i++)
+{
+cout<<"p["<<i<<"]"; cin>>a[i];
+}
+cout<<"\nEnter the probability for unsuccessful search Qi :: "; cout<<"\n————————————————–\n";
+for(i=0;i<=n;i++)
+{
+cout<<"q["<<i<<"]"; cin>>b[i];
+}
+con_obst(); print(0,n); cout<<endl;
+ 
+}
+void con_obst(void)
+{
+int i,j,k,l,min; for(i=0;i<n;i++)
+{ //Initialisation
+c[i][i]=0.0;
+r[i][i]=0;
+wt[i][i]=b[i];
+// for j-i=1 can be j=i+1
+wt[i][i+1]=b[i]+b[i+1]+a[i+1];
+c[i][i+1]=b[i]+b[i+1]+a[i+1]; r[i][i+1]=i+1;
+}
+c[n][n]=0.0;
+r[n][n]=0;
+wt[n][n]=b[n];
+//for j-i=2,3,4	,n
+for(i=2;i<=n;i++)
+{
+for(j=0;j<=n-i;j++)
+{
+wt[j][j+i]=b[j+i]+a[j+i]+wt[j][j+i-1]; c[j][j+i]=9999;
+for(l=j+1;l<=j+i;l++)
+{
+if(c[j][j+i]>(c[j][l-1]+c[l][j+i]))
+{
+c[j][j+i]=c[j][l-1]+c[l][j+i]; r[j][j+i]=l;
+}
+ 
+}
+c[j][j+i]+=wt[j][j+i];
+
+}
+cout<<endl;
+
+}
+cout<<"\n\nOptimal BST is :: ";
+cout<<"\nw[0]["<<n<<"] :: "<<wt[0][n];
+cout<<"\nc[0]["<<n<<"] :: "<<c[0][n];
+cout<<"\nr[0]["<<n<<"] :: "<<r[0][n];
+
+}
+void print(int l1,int r1)
+{
+if(l1>=r1)
+return;
+if(r[l1][r[l1][r1]-1]!=0)
+cout<<"\n Left child of "<<r[l1][r1]<<" :: "<<r[l1][r[l1][r1]-1]; if(r[r[l1][r1]][r1]!=0)
+cout<<"\n Right child of "<<r[l1][r1]<<" :: "<<r[r[l1][r1]][r1]; print(l1,r[l1][r1]-1);
+print(r[l1][r1],r1); return;
+}
+9.	A Dictionary stores keywords and its meanings. Provide facility for adding new 
+keywords, deleting keywords, updating values of any entry. Provide facility to display 
+whole data sorted in ascending/ Descending order. Also find how many maximum 
+comparisons may require for finding any keyword. Use Height balance tree and find the 
+complexity for finding a
+
+#include <iostream> #include <algorithm> #include <cstdlib> using namespace std;
+class node // Node Structure for AVL tree
+{
+public:
+string word, meaning; int ht;
+node *left, *right;
+};
+class AVL
+{
+public:
+node *root;
+AVL()
+{
+root = NULL;
+}
+node *insert(node *, string, string); void preorder(node *);
+void inorder(node *);
+node *RotateRight(node *); node *RotateLeft(node *); node *RR(node *);
+node *LL(node *); node *LR(node *); node *RL(node *);
+ 
+int height(node *); int BF(node *);
+};
+int AVL::height(node *temp) // Used to calculate Hight of subtree
+{
+int lh, rh;
+if (temp == NULL) return 0;
+lh = (temp->left == NULL) ? 0 : 1 + temp->left->ht;
+rh = (temp->right == NULL) ? 0 : 1 + temp->right->ht; return max(lh, rh);
+}
+int AVL::BF(node *temp) // Used to calculate Balance factor of each node
+{
+if (temp == NULL) return 0;
+return height(temp->left) - height(temp->right);
+}
+node *AVL::RotateRight(node *parent) // Rotate right general function need to make connection while rotating tree to ward right
+{
+node *temp;
+temp = new node; temp = parent->left;
+parent->left = temp->right; temp->right = parent;
+parent->ht = height(parent); temp->ht = height(temp); return temp;
+}
+node *AVL::RotateLeft(node *parent) // Rotate left general function need to make connection while rotating tree to ward left
+ 
+{
+
+node *temp;
+temp = new node;
+temp = parent->right;
+parent->right = temp->left; temp->left = parent;
+parent->ht = height(parent); temp->ht = height(temp); return temp;
+}
+node *AVL::RR(node *T) // Rotate towards right
+{
+T = RotateLeft(T); return T;
+}
+node *AVL::LL(node *T) // Rotate towards left
+{
+T = RotateRight(T); return T;
+}
+node *AVL::LR(node *T) // Rotate towards left and then right
+{
+T->left = RotateLeft(T->left); T = RotateRight(T);
+return T;
+}
+node *AVL::RL(node *T) // Rotate towards right and then left
+{
+T->right = RotateRight(T->right); T = RotateLeft(T);
+return T;
+ 
+}
+node *AVL::insert(node *temp, string str_w, string str_m) // Insert each node into the tree
+{
+if (temp == NULL)
+{
+temp = new node;
+temp->word = str_w;
+temp->meaning = str_m;
+temp->left = temp->right = NULL;
+}
+else
+{
+if (str_w.compare(temp->word) > 0)
+{
+temp->right = insert(temp->right, str_w, str_m); if (BF(temp) == -2)
+temp = (str_w.compare(temp->right->word) > 0) ? RR(temp) : RL(temp);
+}
+else
+{
+temp->left = insert(temp->left, str_w, str_m); if (BF(temp) == 2)
+temp = (str_w.compare(temp->left->word) < 0) ? LL(temp) : LR(temp);
+}
+}
+temp->ht = height(temp); return temp;
+}
+void AVL::preorder(node *root) // Preorder traversal of the tree
+{
+if (root != NULL)
+ 
+{
+
+cout << root->word << "(Bf=" << BF(root) << ") "; preorder(root->left);
+preorder(root->right);
+
+}
+
+}
+void AVL::inorder(node *root) // Inorder traversal of the tree
+{
+if (root != NULL)
+{
+inorder(root->left);
+cout << root->word << "(Bf=" << BF(root) << ") "; inorder(root->right);
+}
+}
+int main()
+{
+AVL Tree; int ch;
+string str1, str2;
+cout << "\tOPERATIONS ON AVL TREE\t" << endl; while (true)
+{
+cout << "\n1. Create tree" << endl; cout << "2. Add word" << endl; cout << "3. Display tree" << endl; cout << "4. Exit" << endl;
+cout << "Enter choice: "; cin >> ch;
+switch (ch)
+{
+ 
+case 1:
+case 2:
+cout << "Enter word: "; cin >> str1;
+getline(cin, str2);
+cout << "Enter meaning: "; getline(cin, str2);
+Tree.root = Tree.insert(Tree.root, str1, str2); break;
+case 3:
+cout << "Preorder: ";
+Tree.preorder(Tree.root); cout << endl;
+cout << "Inorder: ";
+Tree.inorder(Tree.root); cout << endl;
+break; case 4:
+exit(1); break;
+}
+
+}
+return 0;
+
+}
+
+
+
+
+10.	Department maintains a student information. The file contains roll number, name, 
+division and address. Allow user to add, delete information of student. Display 
+information of particular employee. If record of student does not exist an appropriate 
+message is displayed. If it is, then the system displays the student details. Use sequential 
+file to main the data.
+
+#include <iostream> #include <fstream> #include <cstdlib> using namespace std; class Student
+{
+public:
+int rollno;
+char name[20]; char dv;
+void get()
+{
+cout<<"Enter name: "; cin>>name;
+cout<<"Enter roll no.: "; cin>>rollno;
+cout<<"Enter division: "; cin>>dv;
+}
+void put()
+{
+cout<<"Name: "<<name<<endl; cout<<"Roll No.: "<<rollno<<endl; cout<<"Division: "<<dv<<endl;
+}
+int getroll()
+{
+return rollno;
+ 
+}
+
+};
+void write_record()
+{
+ofstream outFile; Student obj;
+outFile.open("student.txt", ios::out | ios::app); obj.get();
+outFile.write((char*)&obj, sizeof(obj)); outFile.close();
+}
+void display_record()
+{
+ifstream inFile; Student obj;
+inFile.open("student.txt", ios::in);
+while(inFile.read((char*)&obj, sizeof(obj)))
+{
+obj.put();
+}
+inFile.close();
+}
+void search_record(int n)
+{
+ifstream inFile; Student obj;
+inFile.open("student.txt", ios::in);
+while(inFile.read((char*)&obj, sizeof(obj)))
+{
+if(obj.getroll() == n)
+{
+ 
+obj.put(); break;
+}
+
+}
+inFile.close();
+
+}
+void delete_record(int n)
+{
+Student obj;
+ifstream inFile;
+inFile.open("student.txt", ios::out); ofstream outFile;
+outFile.open("temp.txt", ios::binary | ios::out); while(inFile.read((char*)&obj, sizeof(obj)))
+{
+if(obj.getroll() != n)
+outFile.write((char*)&obj, sizeof(obj));
+}
+inFile.close(); outFile.close();
+remove("student.txt");
+rename("temp.txt", "student.txt");
+}
+void modify_record(int n)
+{
+fstream file;
+file.open("student.txt", ios::in | ios::out); Student obj;
+while(file.read((char*)&obj, sizeof(obj)))
+{
+if(obj.getroll() == n)
+ 
+{
+
+cout<<"Enter new details: "; obj.get();
+int pos = 1*sizeof(obj); file.seekp(pos,ios::cur);
+file.write((char*)&obj, sizeof(obj));
+
+}
+
+}
+file.close();
+
+}
+int main()
+{
+int ch, n;
+while(true)
+{
+cout<<"1. Write"<<endl; cout<<"2. Display"<<endl; cout<<"3. Search"<<endl; cout<<"4. Delete"<<endl; cout<<"5. Modify"<<endl; cout<<"6. Exit"<<endl;
+cout<<"Enter your choice: "; cin>>ch;
+switch(ch)
+{
+case 1: cout<<"Enter no. of records: "; cin>>n;
+for(int i=0; i<n; i++)
+write_record();
+break;
+case 2: display_record(); break;
+ 
+case 3: cout<<"Enter roll no.: "; cin>>n;
+search_record(n); break;
+case 4: cout<<"Enter roll no.: "; cin>>n;
+delete_record(n); break;
+case 5: cout<<"Enter roll no.: "; cin>>n;
+modify_record(n); break;
+case 6: exit(1); break;
+
+}
+
+}
+return 0;
+
+}
+
+11.	Company maintains employee information as employee ID, name, designation and salary. 
+Allow user to add, delete information of employee. Display information of particular 
+employee. If employee does not exist an appropriate message is displayed. If it is, then 
+the system displays the employee details. Use index sequential file to maintain the data.
+
+#include<fstream> #include<iostream> #include<iomanip> #include<string.h> #define SIZE 10
+using namespace std;
+
+
+struct student
+{
+int rollno;
+char name[20]; float marks;
+int status; int link;
+};
+
+
+class linear_probe
+{
+char table[30]; fstream tab;
+student rec;
+
+
+public:
+linear_probe(); void displayall();
+void insert(student); int search(int);
+void display(int);
+ 
+void read(int); void write(int); int modify(int);
+};
+
+
+linear_probe::linear_probe()
+{
+int i;
+cout<<"\nEnter filename: "; cin>>table;
+rec.status = 1;
+rec.link = -1;
+tab.open(table, ios::binary | ios::out); tab.close();
+for(i=0; i<SIZE; i++) write(i);
+}
+
+
+void linear_probe::displayall()
+{
+int i =1;
+for(i = 0; i< SIZE; i++) display(i);
+}
+
+
+void linear_probe::insert(student s)
+{
+int n, i, j, start, k; s.status = 0;
+s.link = -1;
+start = s.rollno % SIZE;
+ 
+for(i =0; i< SIZE; i++)
+{
+j = (start + i)% SIZE; read(j);
+if(rec.status == 0 && (rec.rollno % SIZE) == start) break;
+}
+if(i < 10)
+{
+while(rec.link != -1)
+{
+j = rec.link; read(j);
+}
+for(i=0; i< SIZE; i++)
+{
+k = (start + i)%SIZE; read(k);
+if(rec.status)
+{
+rec = s; write(k);
+read(j);
+rec.link = k; write(j); return;
+}
+}
+cout<<"\nTable is full!";
+}
+ 
+else
+{
+for(i=0; i< SIZE; i++)
+{
+k = (start + i)%SIZE; read(k);
+if(rec.status)
+{
+rec = s; write(k); return;
+}
+}
+cout<<"\nTable is full!";
+}
+
+
+}
+
+
+int linear_probe::search(int rno)
+{
+int start, i, j;
+start = rno % SIZE;
+
+
+for(i =0; i< SIZE; i++)
+{
+j = (start + i)% SIZE; read(j);
+if(rec.status == 0 && (rec.rollno % SIZE) == start) break;
+}
+ 
+if(i < 10)
+{
+while(rec.rollno != rno && rec.link != -1)
+{
+j = rec.link; read(j);
+}
+
+
+if(rec.rollno == rno) return j;
+
+else
+return -1;
+}
+else
+return -1;
+
+}
+void linear_probe::display(int rno)
+{
+int i = rno;
+tab.open(table, ios::binary | ios::in); tab.seekg(rno*sizeof(student), ios::beg); tab.read((char*)&rec,sizeof(student));
+if(rec.status == 0)
+{
+cout<<endl;
+cout<<i<<" "<<rec.rollno<<" "<<rec.name<<" "<<rec.marks<<" "<<rec.link;
+}
+else
+cout<<"\n"<<i<<" !Empty!"; tab.close();
+ 
+}
+
+
+void linear_probe::read(int rno)
+{
+tab.open(table, ios::binary | ios::in); tab.seekg(rno * sizeof(student), ios::beg); tab.read((char*)&rec, sizeof(student)); tab.close();
+}
+
+
+void linear_probe::write(int rno)
+{
+tab.open(table, ios::binary | ios::in | ios::out); tab.seekp(rno * sizeof(student), ios::beg); tab.write((char*)&rec, sizeof(student));
+tab.close();
+}
+
+
+int linear_probe::modify(int rno)
+{
+int start, i, j;
+start = rno % SIZE;
+
+
+for(i =0; i< SIZE; i++)
+{
+j = (start + i)% SIZE; read(j);
+if(rec.status == 0 && (rec.rollno % SIZE) == start) break;
+}
+ 
+if(i < 10)
+{
+while(rec.rollno != rno && rec.link != -1)
+{
+j = rec.link; read(j);
+}
+
+
+if(rec.rollno == rno)
+{
+tab.open(table, ios::binary | ios::in | ios::out); tab.seekg(rno * sizeof(student), ios::beg); cout<<"\nEnter modifeied details: ";
+cout<<"\nEnter roll number, name and marks: "; cin>>rec.rollno>>rec.name>>rec.marks;
+tab.write((char*)&rec, sizeof(student)); tab.close();
+return j;
+}
+
+
+else
+return -1;
+}
+else
+return -1;
+
+}
+int main()
+{
+int choice, rno, check; student rs;
+linear_probe lp;
+ 
+while(1)
+{
+cout<<"\n\n1. Create Database"; cout<<"\n2. Display Database"; cout<<"\n3. Add a record";
+cout<<"\n4. Search a record"; cout<<"\n5. Modify a record"; cout<<"\n6. Exit";
+cout<<"\nEnter your choice: "; cin>>choice;
+switch(choice)
+{
+case 1: cout<<"\nEnter details: ";
+cout<<"\nEnter roll number, name and marks: "; cin>>rs.rollno>>rs.name>>rs.marks;
+lp.insert(rs); break;
+case 2: lp.displayall(); break;
+case 3: cout<<"\nEnter details: ";
+cout<<"\nEnter roll number, name and marks: "; cin>>rs.rollno>>rs.name>>rs.marks;
+lp.insert(rs); break;
+case 4: cout<<"\nEnter roll number to be searched: "; cin>>rno;
+check = lp.search(rno); if(check >= 0)
+{
+cout<<"\nRecord Number: "<<check; lp.display(check);
+ 
+}
+else
+cout<<"\nRecord not found!"; break;
+case 5: cout<<"\nEnter roll number to be modified: "; cin>>rno;
+check = lp.modify(rno); if(check >= 0)
+{
+cout<<"\nRecord Number: "<<check; lp.display(check);
+}
+else
+cout<<"\nRecord not found!"; break;
+case 6: return 0;
+
+}
+
+}
+return 0;
+
+}
+
+Expression Tree
+#include <iostream>
+#include <stack>
+#include <string.h>
+using namespace std;
+class Node
+{
+public:
+    char symbol;
+    Node *left = NULL;
+    Node *right = NULL;
+};
+
+class Tree
+{
+public:
+    stack<Node *> s1;
+    void create(string s)
+    {
+        int a = s.length() - 1;
+        while (a >= 0)
+        {
+            if (isval(s[a]))
+            {
+
+                Node *newnode = new Node;
+                newnode->symbol = s[a];
+                s1.push(newnode);
+            }
+            else if (isOperator(s[a]))
+            {
+                Node *newnode = new Node;
+                newnode->symbol = s[a];
+                newnode->left = s1.top();
+                s1.pop();
+                newnode->right = s1.top();
+                s1.pop();
+                s1.push(newnode);
+            }
+            else
+            {
+                Node *newnode = new Node;
+                newnode->symbol = s[a];
+                s1.push(newnode);
+            }
+            a--;
+        }
+    }
+
+    Node *peek()
+    {
+        Node *a = s1.top();
+        return a;
+    }
+
+    bool isval(char a)
+    {
+        if (a >= '0' && a <= '9')
+            return 1;
+        return 0;
+    }
+
+    bool isOperator(char a)
+    {
+        if (a == '+' || a == '-' || a == '*' || a == '/')
+            return 1;
+        return 0;
+    }
+
+    void postOrder(Node *root)
+    {
+        stack<Node *> s2, s3;
+        s2.push(root);
+        while (!s2.empty())
+        {
+            Node *a = s2.top();
+            s2.pop();
+            s3.push(a);
+            if (a->left != NULL)
+            {
+                s2.push(a->left);
+            }
+            if (a->right != NULL)
+            {
+                s2.push(a->right);
+            }
+        }
+        while (!s3.empty())
+        {
+            cout << s3.top()->symbol;
+            s3.pop();
+        }
+    }
+};
+
+int main()
+{
+    Tree t;
+    string s = "+--a*bc/def";
+    t.create(s);
+    t.postOrder(t.peek());
+}
